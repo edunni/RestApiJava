@@ -5,15 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    Button button;
+    ImageButton buttonAdd;
+    ImageButton buttonReset;
     PersonAdapter pAdapter;
     RecyclerView.LayoutManager layoutManager;
 
@@ -22,21 +22,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = findViewById(R.id.addPersonButton);
+        buttonAdd = findViewById(R.id.addPersonButton);
+        buttonReset = findViewById(R.id.resetAll);
         recyclerView = findViewById(R.id.recyclerV);
 
         ArrayList<Person> people = new ArrayList<Person>();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        button.setOnClickListener(click->{
+        buttonAdd.setOnClickListener(click->{
             GeneratePerson generatePerson = new GeneratePerson(MainActivity.this, people);
             generatePerson.execute();
-            Log.i("peopleArray", people.toString());
+//            Log.i("peopleArray", people.toString());
             pAdapter = new PersonAdapter(people);
             recyclerView.setAdapter(pAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
         });
 
+        buttonReset.setOnClickListener(click->{
+            people.clear();
+            pAdapter = new PersonAdapter(people);
+            recyclerView.setAdapter(pAdapter);
+        });
 
     }
 }
