@@ -43,6 +43,7 @@ public class GeneratePerson extends AsyncTask {
         Log.v(TAG, "Start doInBackground()");
         try{
             url = new URL("https://randomuser.me/api");
+//            Log.i("url", url.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -74,7 +75,7 @@ public class GeneratePerson extends AsyncTask {
             String gender = person.getString("gender");
 
             JSONObject images = person.getJSONObject("picture");
-            String pictureLink = images.getString("large");
+            String pictureLink = images.getString("medium");
 
             JSONObject dob = person.getJSONObject("dob");
             String age = dob.getString("age");
@@ -82,12 +83,19 @@ public class GeneratePerson extends AsyncTask {
             JSONObject location = person.getJSONObject("location");
             String address = location.getString("country");
 
-            publishProgress(stringName, 0);
-            publishProgress(age, 1);
-            publishProgress(address, 2);
-            publishProgress(email, 3);
-            publishProgress(gender, 4);
-            publishProgress(pictureLink, 5);
+            Person personClass = new Person();
+
+            personClass.setName(stringName);
+            personClass.setAge(age);
+            personClass.setAddress(address);
+            personClass.setEmail(email);
+            personClass.setGender(gender);
+            personClass.setPicture(pictureLink);
+            people.add(personClass);
+
+//            publishProgress(person);
+            return people;
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -101,32 +109,13 @@ public class GeneratePerson extends AsyncTask {
 
     @Override
     protected void onProgressUpdate(Object[] values) {
-        Log.v(TAG, "Start onProgressUpdate()");
-        Log.v(TAG, values[0].toString());
-        Log.v(TAG, "values[1] = " + values[1]);
-        Person person = new Person();
-        switch (Integer.parseInt(values[1]+"")){
-            case 0:
-                person.setName(values[0].toString());
-            case 1:
-                person.setAge(Integer.parseInt(values[0].toString()));
-            case 2:
-                person.setAddress(values[0].toString());
-            case 3:
-                person.setEmail(values[0].toString());
-            case 4:
-                person.setGender(values[0].toString());
-            case 5:
-                person.setPicture(values[0].toString());
-            super.onProgressUpdate(values);
-        }
-        Log.i("personString", person.toString());
-        people.add(person);
 
+        super.onProgressUpdate(values);
     }
     @Override
     protected void onPostExecute(Object o) {
         Log.v(TAG, "Start onPostExecute()");
+//        Log.i("peopleArray", people.toString());
         super.onPostExecute(o);
     }
 }

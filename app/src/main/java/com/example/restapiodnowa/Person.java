@@ -4,14 +4,13 @@ import java.util.ArrayList;
 
 public class Person {
     private String name;
-    private String surname;
-    private int age;
+    private String age;
     private String address;
     private String email;
     private String gender;
     private String picture;
 
-    public Person(String name, int age, String address, String email, String gender, String picture) {
+    public Person(String name, String age, String address, String email, String gender, String picture) {
         this.name = name;
         this.age = age;
         this.address = address;
@@ -40,11 +39,11 @@ public class Person {
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -84,7 +83,6 @@ public class Person {
     public String toString() {
         return "Person{" +
                 "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
                 ", age=" + age +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +

@@ -1,36 +1,42 @@
 package com.example.restapiodnowa;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
+import android.util.Log;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView recyclerView;
+    Button button;
+    PersonAdapter pAdapter;
+    RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        button = findViewById(R.id.addPersonButton);
+        recyclerView = findViewById(R.id.recyclerV);
 
         ArrayList<Person> people = new ArrayList<Person>();
-        GeneratePerson generatePerson = new GeneratePerson(getApplicationContext(), people);
-        generatePerson.execute();
-
-        //TODO:
-        //return arraylist of people
-        //adapter
 
 
-//        Picasso.get()
-//                .load(values[0].toString())
-//                .resize(500, 500)
-//                .centerCrop()
-//                .into(Timage);
+        button.setOnClickListener(click->{
+            GeneratePerson generatePerson = new GeneratePerson(MainActivity.this, people);
+            generatePerson.execute();
+            Log.i("peopleArray", people.toString());
+            pAdapter = new PersonAdapter(people);
+            recyclerView.setAdapter(pAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        });
+
+
     }
 }

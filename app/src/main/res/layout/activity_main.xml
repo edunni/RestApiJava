@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <Button
@@ -17,6 +17,7 @@
         android:text="New Person"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
         />
 
 </RelativeLayout>
